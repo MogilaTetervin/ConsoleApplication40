@@ -29,9 +29,9 @@ waterkiller create(){
 	s.weightcrips = rand() % 70 % 40;
 	return s;
 }
-void del(int*& arr, int& size,int index) {
+void del(waterkiller*& arr, int& size,int index ) {
 	if (index <= size) {
-		int* temp = new int[size - 1];
+		waterkiller* temp = new waterkiller[size - 1];
 		for (int i = 0; i < size; i++) {
 			temp[i] = arr[i];
 		}
@@ -49,27 +49,42 @@ void del(int*& arr, int& size,int index) {
 
 int main()
 {
+	srand(time(0));
+	setlocale(LC_ALL, "ru");
+
+	int size = 0;
+	waterkiller* killer = new waterkiller[size];
+
+
+	int meat = 0;
+	int crips = 0;
 	
-	int size = 20;
-	
-	waterkiller* new_killer = new waterkiller[size];
-	print(new_killer, size);
-	waterkiller s;
-	srand(time(NULL));
-	
-	int *gg = new int[size];
-	for (int i = 30; i > 0; i--) {
-		int index = 0;
-		cin >> index;
-		s.weight += 1;
-		print(new_killer, size);
-		for (int i = 0; i < 20; i++) {
-			waterkiller killer = create();
-			addkiller(new_killer, size, killer);
-			
-		}
-		print(new_killer, size);
+	for (int i = 0; i < 20; i++) {
+		waterkiller new_killer = create();
+		addkiller(killer, size, new_killer);
 	}
 
+
+
+	for (int i = 0; i < 31; i++) {
+		for (int j = 0; j < size; j++) {
+			killer[j].weight += 1;
+			killer[j].weight += 25;
+		}
+		for (int x = 0; x < 75; x++) {
+			waterkiller new_killer = create();
+			addkiller(killer, size, new_killer);
+		}
+		do
+		{
+			meat += killer[0].weight;
+			crips += killer[0].weightcrips;
+			del(killer, size,5);
+		} while (meat < 45);
+		meat -= 45;
+	}
+	cout << "утопцев  " << size << endl;
+	cout << "утопчина  " << meat << endl;
+	cout << "чешуя  " << crips << endl;
 }
 
